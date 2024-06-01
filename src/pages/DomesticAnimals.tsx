@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AvTable from "../components/core/AvTable";
 import AvButton from "../components/core/AvButton";
+import AvSearch from "../components/core/AvSearch";
 
 export interface IDomesticAnimalsPageProps {}
 
@@ -27,6 +28,21 @@ const DomesticAnimalsPage: React.FunctionComponent<
       description: "Cows are domesticated mammals, not natural wild animals.",
     },
   ]);
+  const [filteredAnimals, setFilteredAnimals] = useState<
+    {
+      name: string;
+      description: string;
+    }[]
+  >([]);
+
+  const handleSearch = (searchTerm: string) => {
+    // 3. Create handleSearch function
+    setFilteredAnimals(
+      domesticAnimals.filter((animal) =>
+        animal.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  };
 
   const navigate = useNavigate();
   const redirectToCreatePage = () => {
@@ -35,7 +51,10 @@ const DomesticAnimalsPage: React.FunctionComponent<
 
   return (
     <div>
-      <AvTable animals={domesticAnimals} />
+      <AvSearch onSearch={handleSearch} />
+      <AvTable
+        animals={filteredAnimals.length > 0 ? filteredAnimals : domesticAnimals}
+      />
       <AvButton label="Create" onClick={redirectToCreatePage} />
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AvTable from "../components/core/AvTable";
 import AvButton from "../components/core/AvButton";
 import { useNavigate } from "react-router-dom";
+import AvSearch from "../components/core/AvSearch";
 
 export interface IWildAnimalsPageProps {}
 
@@ -25,6 +26,22 @@ const WildAnimalsPage: React.FunctionComponent<IWildAnimalsPageProps> = (
     },
   ]);
 
+  const [filteredAnimals, setFilteredAnimals] = useState<
+    {
+      name: string;
+      description: string;
+    }[]
+  >([]);
+
+  const handleSearch = (searchTerm: string) => {
+    // 3. Create handleSearch function
+    setFilteredAnimals(
+      animals.filter((animal) =>
+        animal.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  };
+
   const navigate = useNavigate();
   const redirectToCreatePage = () => {
     navigate("/create");
@@ -32,7 +49,10 @@ const WildAnimalsPage: React.FunctionComponent<IWildAnimalsPageProps> = (
 
   return (
     <div>
-      <AvTable animals={animals} />
+      <AvSearch onSearch={handleSearch} />
+      <AvTable
+        animals={filteredAnimals.length > 0 ? filteredAnimals : animals}
+      />
       <AvButton label="Create" onClick={redirectToCreatePage} />
     </div>
   );

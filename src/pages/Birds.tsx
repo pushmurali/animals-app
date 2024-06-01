@@ -40,11 +40,9 @@ const BirdsPage: React.FunctionComponent<IBirdsPageProps> = (props) => {
 
   return (
     <div>
-      <div>
-        <AvSearch onSearch={handleSearch} />
-        <AvTable animals={filteredBirds.length > 0 ? filteredBirds : birds} />
-        <AvButton label="Create" onClick={redirectToCreatePage} />
-      </div>
+      <AvSearch onSearch={handleSearch} />
+      <AvTable animals={filteredBirds.length > 0 ? filteredBirds : birds} />
+      <AvButton label="Create" onClick={redirectToCreatePage} />
     </div>
   );
 };
