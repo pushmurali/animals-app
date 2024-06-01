@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AvTable from "../components/core/AvTable";
+import AvButton from "../components/core/AvButton";
 
 export interface IDomesticAnimalsPageProps {}
 
@@ -25,10 +27,16 @@ const DomesticAnimalsPage: React.FunctionComponent<
       description: "Cows are domesticated mammals, not natural wild animals.",
     },
   ]);
+
+  const navigate = useNavigate();
+  const redirectToCreatePage = () => {
+    navigate("/create");
+  };
+
   return (
     <div>
-      <p>This is the Domestic Animals page</p>
       <AvTable animals={domesticAnimals} />
+      <AvButton label="Create" onClick={redirectToCreatePage} />
     </div>
   );
 };

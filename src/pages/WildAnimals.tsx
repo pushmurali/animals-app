@@ -32,7 +32,6 @@ const WildAnimalsPage: React.FunctionComponent<IWildAnimalsPageProps> = (
 
   return (
     <div>
-      <p>This is the Wild Animals page</p>
       <AvTable animals={animals} />
       <AvButton label="Create" onClick={redirectToCreatePage} />
     </div>
